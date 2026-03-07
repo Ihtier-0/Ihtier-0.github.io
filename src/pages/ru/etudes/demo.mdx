@@ -1,0 +1,53 @@
+---
+layout: ../../../layouts/Base.astro
+title: "C++ Этюд #1 - DEMO"
+date: 2026-03-06
+summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+---
+
+<div class="article-header">
+  <h1>C++ Этюд #1 - DEMO</h1>
+  <div class="meta">2026-03-06 · ihtier</div>
+</div>
+
+<div class="article-content">
+
+## Lorem ipsum
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+---
+
+## Dolor sit amet
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur:
+
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "lorem ipsum" << std::endl;
+    return 0;
+}
+```
+
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+---
+
+## Consectetur adipiscing
+
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.
+
+```cpp
+template<typename T>
+constexpr T lorem(T n) {
+    return n <= 1 ? n : lorem(n - 1) + lorem(n - 2);
+}
+
+static_assert(lorem(10) == 55);
+```
+
+Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
+
+</div>

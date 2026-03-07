@@ -2,9 +2,147 @@
 import Base from "../../layouts/Base.astro";
 ---
 
-<Base title="Обо мне — Ihtier-0 blog">
-  <h2 style="margin-bottom:1.5rem">Обо мне</h2>
-  <div class="article-content">
-    <p>Скоро здесь будет информация.</p>
+<Base title="Обо мне — Ihtier-0 blog" description="Рахимов Ихтиёржон — Senior C++ Developer, специализация: десктопные приложения, 3D-графика, VR/AR.">
+  <div class="about-header">
+    <h1 class="about-name">Рахимов Ихтиёржон</h1>
+    <p class="about-title">Senior C++ Developer</p>
+    <p class="about-bio">
+      Разносторонний C++ разработчик с опытом около 5 лет в областях десктопных приложений, 3D-графики, VR/AR и бэкенда. Сильная математическая подготовка с фокусом на компьютерную графику и рендеринг в реальном времени. Аспирант Воронежского государственного университета.
+    </p>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Навыки</h2>
+    <div class="about-tags">
+      <span class="about-tag about-tag-primary">C++</span>
+      <span class="about-tag about-tag-primary">CMake</span>
+      <span class="about-tag about-tag-primary">Qt</span>
+      <span class="about-tag about-tag-primary">OpenGL</span>
+      <span class="about-tag about-tag-primary">OpenXR</span>
+      <span class="about-tag">QML</span>
+      <span class="about-tag">Python</span>
+      <span class="about-tag">Boost</span>
+      <span class="about-tag">TBB</span>
+      <span class="about-tag">OpenUSD</span>
+      <span class="about-tag">Eigen</span>
+      <span class="about-tag">Skia</span>
+      <span class="about-tag">ZeroMQ</span>
+      <span class="about-tag">OpenMesh</span>
+      <span class="about-tag">Docker</span>
+      <span class="about-tag">Bash</span>
+      <span class="about-tag">PostgreSQL</span>
+      <span class="about-tag">Jenkins</span>
+      <span class="about-tag">STL</span>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Опыт работы</h2>
+    <ul class="about-timeline">
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">Программист C++</p>
+        <p class="about-timeline-org">Movavi</p>
+        <p class="about-timeline-period">Май 2024 — настоящее время</p>
+        <div class="about-timeline-desc">
+          Кроссплатформенное Windows/macOS приложение для редактирования видео. C++23, Qt5, QML, CMake, Python, Boost.
+          <ul>
+            <li>Сложные элементы GUI, модуль сравнения изображений (перцептивный хэш), Push-уведомления для Windows (UWP, WinRT)</li>
+            <li>Архитектурные решения (ADR), рефакторинг, код-ревью</li>
+            <li>Проведение собеседований, онбординг и менторинг</li>
+            <li>Unit-тесты (Boost.Test)</li>
+          </ul>
+        </div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">Программист C++</p>
+        <p class="about-timeline-org">Wizart Animation</p>
+        <p class="about-timeline-period">Окт 2022 — Май 2024</p>
+        <div class="about-timeline-desc">
+          Кроссплатформенное DCC-приложение для редактирования, анимирования и рендера OpenUSD сцен. C++14/17, Qt5, CMake, OpenUSD, TBB, OpenGL.
+          <ul>
+            <li>Инструменты OpenUSD, библиотека IPC (ZeroMQ), редактор UV, редактор кривых, рендеринг векторной графики в 3D (Skia)</li>
+            <li>Интеграция библиотек физически корректного рендеринга и работы с 3D-моделями (OpenMesh)</li>
+            <li>Архитектура, рефакторинг, код-ревью, собеседования, менторинг</li>
+            <li>Представление компании на публичных мероприятиях</li>
+          </ul>
+        </div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">VR/AR разработчик C++</p>
+        <p class="about-timeline-org">ИНОБИТЕК</p>
+        <p class="about-timeline-period">Фев 2022 — Окт 2022</p>
+        <div class="about-timeline-desc">
+          Медицинское VR/AR приложение для Windows. C++17, Qt6, CMake, OpenGL, OpenXR.
+          <ul>
+            <li>Ключевые библиотеки: VR рендер, VR GUI, асинхронная загрузка DICOM, DICOM VR рендер</li>
+            <li>Совместимость с Meta Quest 2, Oculus Rift S, HTC VIVE Pro/Pro 2</li>
+            <li>Формирование единого стандарта разработки</li>
+            <li>Разработка для Microsoft HoloLens (UWP) и Unity (C#)</li>
+          </ul>
+        </div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">Backend-разработчик C++</p>
+        <p class="about-timeline-org">ИНОБИТЕК</p>
+        <p class="about-timeline-period">Авг 2021 — Фев 2022</p>
+        <div class="about-timeline-desc">
+          Медицинское кроссплатформенное клиент-серверное приложение. C++14, Qt5, PostgreSQL, Docker.
+          <ul>
+            <li>Микросервисы и низкоуровневая многопоточная HTTP-библиотека</li>
+            <li>Стандарт DICOM: рендер медицинских изображений (МРТ, КТ, ЭКГ), упаковка видео/изображений (DCMTK, FFmpeg)</li>
+            <li>Контейнеризация Docker, Jenkins pipelines, администрирование nginx</li>
+          </ul>
+        </div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">Программист C++</p>
+        <p class="about-timeline-org">Russian3DScanner</p>
+        <p class="about-timeline-period">Июл 2020 — Авг 2020</p>
+        <div class="about-timeline-desc">
+          Viewport для визуализации полигональных моделей (C++14, Eigen, OpenGL, Qt5). Реализация алгоритма Non-Rigid Alignment с использованием Blendshape для регистрации 3D-моделей ног методами нелинейной оптимизации.
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Образование</h2>
+    <ul class="about-timeline">
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">Кандидат наук — математическое моделирование</p>
+        <p class="about-timeline-org">Воронежский государственный университет</p>
+        <p class="about-timeline-period">2025 — 2028 (ожидаемый год защиты)</p>
+        <div class="about-timeline-desc">Факультет ПМИиМ. Математическое моделирование, численные методы и комплексы программ.</div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">Магистр — прикладная математика и информатика</p>
+        <p class="about-timeline-org">Воронежский государственный университет</p>
+        <p class="about-timeline-period">2022 — 2025</p>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">Бакалавр — прикладная математика и информатика</p>
+        <p class="about-timeline-org">Воронежский государственный университет</p>
+        <p class="about-timeline-period">2018 — 2022</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Open Source</h2>
+    <div class="about-project">
+      <p class="about-project-name"><a href="https://github.com/shapefx/OpenDCC">OpenDCC</a></p>
+      <p class="about-project-desc">Контрибьютор. Открытая платформа для создания цифрового контента (DCC).</p>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Контакты</h2>
+    <div class="about-contacts">
+      <a class="about-contact-link" href="https://github.com/Ihtier-0">GitHub</a>
+      <a class="about-contact-link" href="https://t.me/ihtier0">Telegram</a>
+      <a class="about-contact-link" href="https://www.linkedin.com/in/ihtier0">LinkedIn</a>
+      <a class="about-contact-link" href="https://career.habr.com/ihtier-0">Habr Career</a>
+      <a class="about-contact-link" href="mailto:ihtier_@outlook.com">Email</a>
+    </div>
   </div>
 </Base>

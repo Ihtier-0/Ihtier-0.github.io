@@ -2,9 +2,147 @@
 import Base from "../../layouts/Base.astro";
 ---
 
-<Base title="About me — Ihtier-0 blog">
-  <h2 style="margin-bottom:1.5rem">About me</h2>
-  <div class="article-content">
-    <p>Coming soon.</p>
+<Base title="About me — Ihtier-0 blog" description="Ikhtierzhon Rakhimov — Senior C++ Developer specializing in desktop applications, 3D graphics, and VR/AR.">
+  <div class="about-header">
+    <h1 class="about-name">Ikhtierzhon Rakhimov</h1>
+    <p class="about-title">Senior C++ Developer</p>
+    <p class="about-bio">
+      Versatile C++ developer with nearly 5 years of experience spanning desktop applications, 3D graphics, VR/AR, and backend systems. Strong mathematical background with a focus on computer graphics and real-time rendering. PhD candidate at Voronezh State University.
+    </p>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Skills</h2>
+    <div class="about-tags">
+      <span class="about-tag about-tag-primary">C++</span>
+      <span class="about-tag about-tag-primary">CMake</span>
+      <span class="about-tag about-tag-primary">Qt</span>
+      <span class="about-tag about-tag-primary">OpenGL</span>
+      <span class="about-tag about-tag-primary">OpenXR</span>
+      <span class="about-tag">QML</span>
+      <span class="about-tag">Python</span>
+      <span class="about-tag">Boost</span>
+      <span class="about-tag">TBB</span>
+      <span class="about-tag">OpenUSD</span>
+      <span class="about-tag">Eigen</span>
+      <span class="about-tag">Skia</span>
+      <span class="about-tag">ZeroMQ</span>
+      <span class="about-tag">OpenMesh</span>
+      <span class="about-tag">Docker</span>
+      <span class="about-tag">Bash</span>
+      <span class="about-tag">PostgreSQL</span>
+      <span class="about-tag">Jenkins</span>
+      <span class="about-tag">STL</span>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Experience</h2>
+    <ul class="about-timeline">
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">C++ Developer</p>
+        <p class="about-timeline-org">Movavi</p>
+        <p class="about-timeline-period">May 2024 — Present</p>
+        <div class="about-timeline-desc">
+          Cross-platform Windows/macOS video editing application. C++23, Qt5, QML, CMake, Python, Boost.
+          <ul>
+            <li>Complex GUI components, image comparison module (perceptual hash), Push notifications for Windows (UWP, WinRT)</li>
+            <li>Architectural decisions (ADR), refactoring, code review</li>
+            <li>Interviewing, onboarding, and mentoring new team members</li>
+            <li>Unit testing with Boost.Test</li>
+          </ul>
+        </div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">C++ Developer</p>
+        <p class="about-timeline-org">Wizart Animation</p>
+        <p class="about-timeline-period">Oct 2022 — May 2024</p>
+        <div class="about-timeline-desc">
+          Cross-platform DCC application for editing, animating, and rendering OpenUSD scenes. C++14/17, Qt5, CMake, OpenUSD, TBB, OpenGL.
+          <ul>
+            <li>OpenUSD tools, IPC library (ZeroMQ), UV editor, curve editor, vector graphics rendering in 3D (Skia)</li>
+            <li>Integrated physically-based rendering and 3D model libraries (OpenMesh)</li>
+            <li>Architecture, refactoring, code review, interviews, mentoring</li>
+            <li>Represented the company at public events</li>
+          </ul>
+        </div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">C++ VR/AR Developer</p>
+        <p class="about-timeline-org">Inobitec</p>
+        <p class="about-timeline-period">Feb 2022 — Oct 2022</p>
+        <div class="about-timeline-desc">
+          Medical VR/AR application for Windows. C++17, Qt6, CMake, OpenGL, OpenXR.
+          <ul>
+            <li>Core libraries: VR renderer, VR GUI, async DICOM loader, DICOM VR renderer</li>
+            <li>Compatibility with Meta Quest 2, Oculus Rift S, HTC VIVE Pro/Pro 2</li>
+            <li>Established unified development standards</li>
+            <li>Development for Microsoft HoloLens (UWP) and Unity (C#)</li>
+          </ul>
+        </div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">C++ Backend Developer</p>
+        <p class="about-timeline-org">Inobitec</p>
+        <p class="about-timeline-period">Aug 2021 — Feb 2022</p>
+        <div class="about-timeline-desc">
+          Medical cross-platform client-server application. C++14, Qt5, PostgreSQL, Docker.
+          <ul>
+            <li>Microservices and low-level multithreaded HTTP library</li>
+            <li>DICOM standard: medical image rendering (MRI, CT, ECG), video/image packaging (DCMTK, FFmpeg)</li>
+            <li>Docker containerization, Jenkins pipelines, nginx administration</li>
+          </ul>
+        </div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">C++ Developer</p>
+        <p class="about-timeline-org">Russian3DScanner</p>
+        <p class="about-timeline-period">Jul 2020 — Aug 2020</p>
+        <div class="about-timeline-desc">
+          3D model visualization viewport (C++14, Eigen, OpenGL, Qt5). Implemented Non-Rigid Alignment algorithm using Blendshape for 3D foot model registration with nonlinear optimization.
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Education</h2>
+    <ul class="about-timeline">
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">PhD in Mathematical Modeling</p>
+        <p class="about-timeline-org">Voronezh State University</p>
+        <p class="about-timeline-period">2025 — 2028 (expected)</p>
+        <div class="about-timeline-desc">Faculty of Applied Mathematics, Computer Science and Mechanics. Mathematical modeling, numerical methods and software systems.</div>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">MSc in Applied Mathematics and Computer Science</p>
+        <p class="about-timeline-org">Voronezh State University</p>
+        <p class="about-timeline-period">2022 — 2025</p>
+      </li>
+      <li class="about-timeline-item">
+        <p class="about-timeline-role">BSc in Applied Mathematics and Computer Science</p>
+        <p class="about-timeline-org">Voronezh State University</p>
+        <p class="about-timeline-period">2018 — 2022</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Open Source</h2>
+    <div class="about-project">
+      <p class="about-project-name"><a href="https://github.com/shapefx/OpenDCC">OpenDCC</a></p>
+      <p class="about-project-desc">Contributor. Open-source DCC (Digital Content Creation) platform.</p>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2 class="about-section-title">Contact</h2>
+    <div class="about-contacts">
+      <a class="about-contact-link" href="https://github.com/Ihtier-0">GitHub</a>
+      <a class="about-contact-link" href="https://t.me/ihtier0">Telegram</a>
+      <a class="about-contact-link" href="https://www.linkedin.com/in/ihtier0">LinkedIn</a>
+      <a class="about-contact-link" href="https://career.habr.com/ihtier-0">Habr Career</a>
+      <a class="about-contact-link" href="mailto:ihtier_@outlook.com">Email</a>
+    </div>
   </div>
 </Base>

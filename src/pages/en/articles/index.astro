@@ -1,0 +1,32 @@
+---
+import Base from "../../../layouts/Base.astro";
+
+const articleFiles = await Astro.glob("./*.mdx");
+const articles = articleFiles
+  .map((a) => ({
+    url: a.url,
+    title: a.frontmatter.title,
+    date: a.frontmatter.date ? new Date(a.frontmatter.date).toISOString().slice(0, 10) : "",
+    summary: a.frontmatter.summary || "",
+  }))
+  .sort((a, b) => (b.date > a.date ? 1 : -1));
+---
+
+<Base title="Articles — Ihtier-0 blog">
+  <h2 style="margin-bottom:1.5rem">Articles</h2>
+  {articles.length > 0 ? (
+    <ul class="article-list">
+      {articles.map((a) => (
+        <li>
+          <a href={a.url}>
+            <h2>{a.title}</h2>
+            {a.date && <span class="date">{a.date}</span>}
+            {a.summary && <p class="summary">{a.summary}</p>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>No articles yet.</p>
+  )}
+</Base>

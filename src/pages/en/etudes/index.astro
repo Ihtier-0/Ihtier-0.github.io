@@ -1,0 +1,32 @@
+---
+import Base from "../../../layouts/Base.astro";
+
+const etudeFiles = await Astro.glob("./*.mdx");
+const etudes = etudeFiles
+  .map((a) => ({
+    url: a.url,
+    title: a.frontmatter.title,
+    date: a.frontmatter.date ? new Date(a.frontmatter.date).toISOString().slice(0, 10) : "",
+    summary: a.frontmatter.summary || "",
+  }))
+  .sort((a, b) => (b.date > a.date ? 1 : -1));
+---
+
+<Base title="C++ Etudes — Ihtier-0 blog">
+  <h2 style="margin-bottom:1.5rem">C++ Etudes</h2>
+  {etudes.length > 0 ? (
+    <ul class="article-list">
+      {etudes.map((a) => (
+        <li>
+          <a href={a.url}>
+            <h2>{a.title}</h2>
+            {a.date && <span class="date">{a.date}</span>}
+            {a.summary && <p class="summary">{a.summary}</p>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>No etudes yet.</p>
+  )}
+</Base>

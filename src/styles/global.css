@@ -257,6 +257,37 @@ main {
   padding: 1rem;
   overflow-x: auto;
   margin: 1rem 0;
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.article-content pre:hover .copy-btn,
+.copy-btn:focus {
+  opacity: 1;
+}
+
+.copy-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.copy-btn.copied {
+  color: #3fb950;
+  border-color: #3fb950;
 }
 
 .article-content code {

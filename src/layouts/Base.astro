@@ -1,0 +1,112 @@
+---
+import { getLangFromUrl, getOtherLang, languages, t } from "../i18n";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const otherLang = getOtherLang(lang);
+const switchUrl = Astro.url.pathname.replace(`/${lang}/`, `/${otherLang}/`);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <h1><a href={`/${lang}/`}>{t(lang, "site.title")}</a></h1>
+      <div class="header-right">
+        <a class="lang-switch" href={switchUrl}>{languages[otherLang]}</a>
+        <div class="search-wrapper">
+          <input type="text" id="search-input" placeholder={t(lang, "search.placeholder")} />
+          <div class="search-results" id="search-results"></div>
+        </div>
+      </div>
+    </header>
+
+    <main data-pagefind-body>
+      <slot />
+    </main>
+
+    <script define:vars={{ lang }}>
+      window.__LANG__ = lang;
+    </script>
+    <script is:inline>
+      (function() {
+        var input = document.getElementById("search-input");
+        var results = document.getElementById("search-results");
+        var pagefind = null;
+
+        input.addEventListener("focus", async function() {
+          if (!pagefind) {
+            try {
+              pagefind = await import("/pagefind/pagefind.js");
+              await pagefind.init();
+            } catch(e) {
+              return;
+            }
+          }
+        });
+
+        input.addEventListener("input", async function() {
+          var query = input.value.trim();
+          if (!query || !pagefind) {
+            results.classList.remove("active");
+            return;
+          }
+
+          var search = await pagefind.search(query);
+          var items = await Promise.all(search.results.slice(0, 5).map(function(r) { return r.data(); }));
+
+          if (items.length === 0) {
+            results.innerHTML = '<div style="padding:0.6rem 0.8rem;color:var(--text-muted)">' +
+              (window.__LANG__ === "ru" ? "Ничего не найдено" : "Nothing found") +
+            '</div>';
+          } else {
+            results.innerHTML = items
+              .map(function(item) { return '<a href="' + item.url + '">' + (item.meta?.title || item.url) + '</a>'; })
+              .join("");
+          }
+          results.classList.add("active");
+        });
+
+        document.addEventListener("click", function(e) {
+          if (!e.target.closest(".search-wrapper")) {
+            results.classList.remove("active");
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/global.css";
+</style>
+
+<style>
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lang-switch {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .lang-switch:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+</style>

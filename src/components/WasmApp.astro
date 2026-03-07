@@ -1,0 +1,14 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+  height?: string;
+}
+
+const { src, title = "WASM App", height = "450px" } = Astro.props;
+---
+
+<div class="wasm-app">
+  <div class="wasm-app-header">{title}</div>
+  <iframe src={src} style={`height:${height};width:100%;border:none;display:block;background:#0d1117`} title={title} allow="cross-origin-isolated"></iframe>
+</div>

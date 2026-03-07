@@ -255,9 +255,21 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1rem;
+  padding-top: 2rem;
   overflow-x: auto;
   margin: 1rem 0;
   position: relative;
+}
+
+.article-content pre[data-language]::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0.4rem;
+  left: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .copy-btn {

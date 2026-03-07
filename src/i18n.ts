@@ -7,14 +7,14 @@ export type Lang = keyof typeof languages;
 
 const ui = {
   ru: {
-    "site.title": "ihtier blog",
+    "site.title": "Ihtier-0 blog",
     "search.placeholder": "Поиск...",
     "search.empty": "Ничего не найдено",
     "home.title": "Статьи",
     "article.back": "← Назад",
   },
   en: {
-    "site.title": "ihtier blog",
+    "site.title": "Ihtier-0 blog",
     "search.placeholder": "Search...",
     "search.empty": "Nothing found",
     "home.title": "Articles",

@@ -168,6 +168,40 @@ main {
   font-size: 0.95rem;
 }
 
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.tag-article {
+  background: #1f3a5f;
+  color: #79c0ff;
+}
+
+.tag-etude {
+  background: #2d1f3a;
+  color: #d2a8ff;
+}
+
+[data-theme="light"] .tag-article {
+  background: #ddf4ff;
+  color: #0550ae;
+}
+
+[data-theme="light"] .tag-etude {
+  background: #fbefff;
+  color: #6639ba;
+}
+
 /* Article content */
 .article-header {
   margin-bottom: 2rem;

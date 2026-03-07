@@ -2,31 +2,43 @@
 import Base from "../../layouts/Base.astro";
 
 const articleFiles = await Astro.glob("./articles/*.mdx");
-const articles = articleFiles
-  .map((a) => ({
+const etudeFiles = await Astro.glob("./etudes/*.mdx");
+
+const all = [
+  ...articleFiles.map((a) => ({
     url: a.url,
     title: a.frontmatter.title,
     date: a.frontmatter.date ? new Date(a.frontmatter.date).toISOString().slice(0, 10) : "",
     summary: a.frontmatter.summary || "",
-  }))
-  .sort((a, b) => (b.date > a.date ? 1 : -1));
+    type: "article" as const,
+  })),
+  ...etudeFiles.map((a) => ({
+    url: a.url,
+    title: a.frontmatter.title,
+    date: a.frontmatter.date ? new Date(a.frontmatter.date).toISOString().slice(0, 10) : "",
+    summary: a.frontmatter.summary || "",
+    type: "etude" as const,
+  })),
+].sort((a, b) => (b.date > a.date ? 1 : -1));
 ---
 
-<Base title="ihtier blog">
-  <h2 style="margin-bottom:1.5rem">Articles</h2>
-  {articles.length > 0 ? (
+<Base title="Ihtier-0 blog">
+  {all.length > 0 ? (
     <ul class="article-list">
-      {articles.map((a) => (
+      {all.map((a) => (
         <li>
           <a href={a.url}>
+            <div class="post-meta">
+              <span class={`tag tag-${a.type}`}>{a.type === "article" ? "Article" : "C++ Etude"}</span>
+              {a.date && <span class="date">{a.date}</span>}
+            </div>
             <h2>{a.title}</h2>
-            {a.date && <span class="date">{a.date}</span>}
             {a.summary && <p class="summary">{a.summary}</p>}
           </a>
         </li>
       ))}
     </ul>
   ) : (
-    <p>No articles yet.</p>
+    <p>No posts yet.</p>
   )}
 </Base>

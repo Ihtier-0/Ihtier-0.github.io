@@ -25,6 +25,7 @@ const switchUrl = Astro.url.pathname.replace(`/${lang}/`, `/${otherLang}/`);
     </script>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <header class="site-header">
       <div class="header-left">
         <button id="nav-toggle" class="nav-toggle" aria-label="Menu">&#9776;</button>
@@ -54,7 +55,7 @@ const switchUrl = Astro.url.pathname.replace(`/${lang}/`, `/${otherLang}/`);
       </ul>
     </nav>
 
-    <main data-pagefind-body>
+    <main id="main-content" data-pagefind-body>
       <slot />
     </main>
 
@@ -84,11 +85,33 @@ const switchUrl = Astro.url.pathname.replace(`/${lang}/`, `/${otherLang}/`);
         var close = document.getElementById("nav-close");
         var sidebar = document.getElementById("nav-sidebar");
         var overlay = document.getElementById("nav-overlay");
-        function open() { sidebar.classList.add("open"); overlay.classList.add("open"); }
-        function shut() { sidebar.classList.remove("open"); overlay.classList.remove("open"); }
+        function open() {
+          sidebar.classList.add("open");
+          overlay.classList.add("open");
+          close.focus();
+        }
+        function shut() {
+          sidebar.classList.remove("open");
+          overlay.classList.remove("open");
+          toggle.focus();
+        }
         toggle.addEventListener("click", open);
         close.addEventListener("click", shut);
         overlay.addEventListener("click", shut);
+        document.addEventListener("keydown", function(e) {
+          if (e.key === "Escape" && sidebar.classList.contains("open")) shut();
+        });
+        sidebar.addEventListener("keydown", function(e) {
+          if (e.key !== "Tab") return;
+          var focusable = sidebar.querySelectorAll("button, a[href]");
+          var first = focusable[0];
+          var last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault(); last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault(); first.focus();
+          }
+        });
       })();
     </script>
     <script is:inline>
@@ -145,6 +168,22 @@ const switchUrl = Astro.url.pathname.replace(`/${lang}/`, `/${otherLang}/`);
 </style>
 
 <style>
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 999;
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  .skip-link:focus {
+    top: 0.5rem;
+  }
+
   .header-right {
     display: flex;
     align-items: center;

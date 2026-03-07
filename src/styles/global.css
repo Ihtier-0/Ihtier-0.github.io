@@ -5,7 +5,7 @@
 [data-theme="dark"] {
   --bg: #0d1117;
   --bg-surface: #161b22;
-  --bg-code: #1c2128;
+  --bg-code: #212830;
   --border: #30363d;
   --text: #e6edf3;
   --text-muted: #8b949e;
@@ -149,12 +149,13 @@ main {
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: 8px;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, transform 0.2s;
 }
 
 .article-list a:hover {
   border-color: var(--accent);
   text-decoration: none;
+  transform: translateY(-2px);
 }
 
 .article-list h2 {
@@ -224,8 +225,8 @@ main {
 
 .article-content h2 {
   font-size: 1.5rem;
-  margin: 2rem 0 1rem;
-  padding-top: 1rem;
+  margin: 2.5rem 0 1rem;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--border);
 }
 

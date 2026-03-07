@@ -3,9 +3,10 @@ import { getLangFromUrl, getOtherLang, languages, t } from "../i18n";
 
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "Ihtier-0 Blog — C++ and Systems Programming" } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const otherLang = getOtherLang(lang);
 const switchUrl = Astro.url.pathname.replace(`/${lang}/`, `/${otherLang}/`);
@@ -27,6 +28,15 @@ function isActive(href: string) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="alternate" hreflang={otherLang} href={switchUrl} />
     <title>{title}</title>
     <script is:inline>
       (function(){

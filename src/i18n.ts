@@ -17,6 +17,13 @@ const ui = {
     "nav.about": "Обо мне",
     "nav.blog": "Блог",
     "article.back": "← Назад",
+    "tag.article": "Статья",
+    "tag.etude": "C++ Этюд",
+    "list.empty.posts": "Записей пока нет.",
+    "list.empty.articles": "Статей пока нет.",
+    "list.empty.etudes": "Этюдов пока нет.",
+    "page.articles": "Статьи",
+    "page.etudes": "C++ Этюды",
   },
   en: {
     "site.title": "Ihtier-0 blog",
@@ -29,6 +36,13 @@ const ui = {
     "nav.about": "About me",
     "nav.blog": "Blog",
     "article.back": "← Back",
+    "tag.article": "Article",
+    "tag.etude": "C++ Etude",
+    "list.empty.posts": "No posts yet.",
+    "list.empty.articles": "No articles yet.",
+    "list.empty.etudes": "No etudes yet.",
+    "page.articles": "Articles",
+    "page.etudes": "C++ Etudes",
   },
 } as const;
 

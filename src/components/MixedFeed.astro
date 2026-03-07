@@ -1,0 +1,40 @@
+---
+import type { Lang } from "../i18n";
+import { t } from "../i18n";
+
+interface Post {
+  url: string;
+  title: string;
+  date: string;
+  summary: string;
+  type: string;
+}
+
+interface Props {
+  posts: Post[];
+  lang: Lang;
+}
+
+const { posts, lang } = Astro.props;
+---
+
+{posts.length > 0 ? (
+  <ul class="article-list">
+    {posts.map((a) => (
+      <li>
+        <a href={a.url}>
+          <div class="post-meta">
+            <span class={`tag tag-${a.type}`}>
+              {a.type === "article" ? t(lang, "tag.article") : t(lang, "tag.etude")}
+            </span>
+            {a.date && <span class="date">{a.date}</span>}
+          </div>
+          <h2>{a.title}</h2>
+          {a.summary && <p class="summary">{a.summary}</p>}
+        </a>
+      </li>
+    ))}
+  </ul>
+) : (
+  <p>{t(lang, "list.empty.posts")}</p>
+)}

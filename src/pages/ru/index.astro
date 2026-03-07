@@ -1,44 +1,24 @@
 ---
 import Base from "../../layouts/Base.astro";
+import MixedFeed from "../../components/MixedFeed.astro";
 
-const articleFiles = await Astro.glob("./articles/*.mdx");
-const etudeFiles = await Astro.glob("./etudes/*.mdx");
+const articleMods = import.meta.glob("./articles/*.mdx", { eager: true });
+const etudeMods = import.meta.glob("./etudes/*.mdx", { eager: true });
 
-const all = [
-  ...articleFiles.map((a) => ({
+function toList(mods: Record<string, any>, type: string) {
+  return Object.values(mods).map((a: any) => ({
     url: a.url,
     title: a.frontmatter.title,
     date: a.frontmatter.date ? new Date(a.frontmatter.date).toISOString().slice(0, 10) : "",
     summary: a.frontmatter.summary || "",
-    type: "article" as const,
-  })),
-  ...etudeFiles.map((a) => ({
-    url: a.url,
-    title: a.frontmatter.title,
-    date: a.frontmatter.date ? new Date(a.frontmatter.date).toISOString().slice(0, 10) : "",
-    summary: a.frontmatter.summary || "",
-    type: "etude" as const,
-  })),
-].sort((a, b) => (b.date > a.date ? 1 : -1));
+    type,
+  }));
+}
+
+const all = [...toList(articleMods, "article"), ...toList(etudeMods, "etude")]
+  .sort((a, b) => (b.date > a.date ? 1 : -1));
 ---
 
 <Base title="Ihtier-0 blog">
-  {all.length > 0 ? (
-    <ul class="article-list">
-      {all.map((a) => (
-        <li>
-          <a href={a.url}>
-            <div class="post-meta">
-              <span class={`tag tag-${a.type}`}>{a.type === "article" ? "Статья" : "C++ Этюд"}</span>
-              {a.date && <span class="date">{a.date}</span>}
-            </div>
-            <h2>{a.title}</h2>
-            {a.summary && <p class="summary">{a.summary}</p>}
-          </a>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p>Записей пока нет.</p>
-  )}
+  <MixedFeed posts={all} lang="ru" />
 </Base>

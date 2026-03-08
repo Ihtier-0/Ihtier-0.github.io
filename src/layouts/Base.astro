@@ -87,19 +87,11 @@ function isActive(href: string) {
     </main>
 
     <footer class="site-footer">
-      <div class="footer-inner">
-        <nav class="footer-nav">
-          {navItems.map((item) => (
-            <a href={item.href}>{item.label}</a>
-          ))}
-        </nav>
-        <div class="footer-links">
-          <a href="https://github.com/Ihtier-0">GitHub</a>
-          <a href="https://t.me/ihtier0">Telegram</a>
-          <a href="https://www.linkedin.com/in/ihtier0">LinkedIn</a>
-        </div>
-        <p class="footer-copy">&copy; {new Date().getFullYear()} Ihtier-0. {t(lang, "footer.built")} <a href="https://astro.build">Astro</a>.</p>
-      </div>
+      <span class="footer-copy">&copy; 2026–Present Ihtier-0</span>
+      <span class="footer-sep">·</span>
+      <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+      <span class="footer-sep">·</span>
+      <span class="footer-copy">{t(lang, "footer.built")} <a href="https://astro.build">Astro</a></span>
     </footer>
 
     <script define:vars={{ lang }}>
@@ -439,53 +431,31 @@ function isActive(href: string) {
 
   .site-footer {
     border-top: 1px solid var(--border);
-    margin-top: 4rem;
-    padding: 2rem 1.5rem;
-  }
-
-  .footer-inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .footer-nav {
+    margin-top: auto;
+    padding: 1rem 1.5rem;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .footer-nav a {
-    font-size: 0.85rem;
+    gap: 0.4rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
   }
 
-  .footer-nav a:hover {
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .footer-links a {
-    font-size: 0.85rem;
+  .site-footer a {
     color: var(--text-muted);
   }
 
-  .footer-links a:hover {
+  .site-footer a:hover {
     color: var(--accent);
     text-decoration: none;
   }
 
+  .footer-sep {
+    color: var(--border);
+  }
+
   .footer-copy {
-    font-size: 0.8rem;
     color: var(--text-muted);
   }
 </style>

@@ -19,17 +19,16 @@ const ui = {
     "article.back": "← Назад",
     "tag.article": "Статья",
     "tag.etude": "C++ Этюд",
-    "tag.showcase": "Showcase",
+    "tag.showcase": "Портфолио",
     "list.empty.posts": "Записей пока нет.",
     "list.empty.articles": "Статей пока нет.",
     "list.empty.etudes": "Этюдов пока нет.",
     "list.empty.showcase": "Пока нет записей.",
     "page.articles": "Статьи",
     "page.etudes": "C++ Этюды",
-    "page.showcase": "Showcase",
-    "nav.showcase": "Showcase",
+    "page.showcase": "Портфолио",
+    "nav.showcase": "Портфолио",
     "footer.built": "Сделано с",
-    "footer.rights": "Все права защищены.",
   },
   en: {
     "site.title": "Ihtier-0 blog",
@@ -54,7 +53,6 @@ const ui = {
     "page.showcase": "Showcase",
     "nav.showcase": "Showcase",
     "footer.built": "Built with",
-    "footer.rights": "All rights reserved.",
   },
 } as const;
 

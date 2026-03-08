@@ -25,6 +25,7 @@
 }
 
 /* Shiki dual theme switching */
+/* Shiki generates light theme as default inline colors, dark as --shiki-dark vars */
 [data-theme="dark"] .astro-code {
   color: var(--shiki-dark) !important;
   background-color: var(--bg-code) !important;
@@ -35,12 +36,7 @@
 }
 
 [data-theme="light"] .astro-code {
-  color: var(--shiki-light) !important;
   background-color: var(--bg-code) !important;
-}
-
-[data-theme="light"] .astro-code span {
-  color: var(--shiki-light) !important;
 }
 
 * {

@@ -60,7 +60,7 @@ function isActive(href: string) {
       </div>
       <div class="header-right">
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></button>
-        <a class="lang-switch" href={switchUrl}>{languages[otherLang]}</a>
+        <a class="lang-switch" id="lang-switch" href={switchUrl}>{languages[otherLang]}</a>
         <div class="search-wrapper">
           <input type="text" id="search-input" placeholder={t(lang, "search.placeholder")} />
           <div class="search-results" id="search-results"></div>
@@ -87,11 +87,33 @@ function isActive(href: string) {
     </main>
 
     <footer class="site-footer">
-      <span class="footer-copy">&copy; 2026–Present Ihtier-0</span>
-      <span class="footer-sep">·</span>
-      <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
-      <span class="footer-sep">·</span>
-      <span class="footer-copy">{t(lang, "footer.built")} <a href="https://astro.build">Astro</a></span>
+      <div class="footer-row">
+        <span class="footer-copy">&copy; 2026–Present Ihtier-0</span>
+        <span class="footer-sep">·</span>
+        <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+        <span class="footer-sep">·</span>
+        <span class="footer-copy">{t(lang, "footer.built")} <a href="https://astro.build">Astro</a></span>
+      </div>
+      <div class="footer-socials">
+        <a href="https://github.com/Ihtier-0" aria-label="GitHub" title="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://t.me/ihtier0" aria-label="Telegram" title="Telegram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/ihtier0" aria-label="LinkedIn" title="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://career.habr.com/ihtier-0" aria-label="Habr Career" title="Habr Career">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.654 3.586l.174 3.373-.48-.036c-1.236-.096-2.28.48-2.736 1.404l-.18.36V15.6l.204.384c.492.924 1.404 1.44 2.568 1.44h.624l-.174 3.384-.3.036c-2.832.348-5.352-.792-6.516-2.964l-.288-.54V6.72l.3-.564c1.164-2.148 3.66-3.264 6.468-2.916l.336.048zM21.84 6.12v11.832l-.288.54c-1.212 2.232-3.756 3.348-6.624 2.916l-.288-.036.168-3.384.576.036c1.236.072 2.196-.492 2.628-1.44l.18-.348V8.916l-.204-.384c-.468-.876-1.284-1.404-2.412-1.464l-.588-.012.174-3.384.3-.036c2.856-.312 5.364.804 6.516 2.964l.24.456-.378.06z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/ihtier_0/" aria-label="Instagram" title="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="mailto:ihtier_@outlook.com" aria-label="Email" title="Email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
+        </a>
+      </div>
     </footer>
 
     <script define:vars={{ lang }}>
@@ -215,6 +237,23 @@ function isActive(href: string) {
           });
           pre.appendChild(btn);
         });
+      })();
+    </script>
+    <script is:inline>
+      (function(){
+        var sw = document.getElementById("lang-switch");
+        if (sw) {
+          sw.addEventListener("click", function() {
+            try { sessionStorage.setItem("scrollY", window.scrollY); } catch(e) {}
+          });
+        }
+        try {
+          var y = sessionStorage.getItem("scrollY");
+          if (y !== null) {
+            sessionStorage.removeItem("scrollY");
+            window.scrollTo(0, parseInt(y, 10));
+          }
+        } catch(e) {}
       })();
     </script>
   </body>
@@ -432,14 +471,21 @@ function isActive(href: string) {
   .site-footer {
     border-top: 1px solid var(--border);
     margin-top: auto;
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 1rem;
     font-size: 0.8rem;
     color: var(--text-muted);
+  }
+
+  .footer-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .site-footer a {
@@ -457,5 +503,22 @@ function isActive(href: string) {
 
   .footer-copy {
     color: var(--text-muted);
+  }
+
+  .footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-socials a {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.5;
+    transition: opacity 0.15s;
+  }
+
+  .footer-socials a:hover {
+    opacity: 1;
   }
 </style>

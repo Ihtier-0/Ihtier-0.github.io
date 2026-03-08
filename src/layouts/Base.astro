@@ -55,7 +55,7 @@ function isActive(href: string) {
     <header class="site-header">
       <div class="header-left">
         <button id="nav-toggle" class="nav-toggle" aria-label="Menu">&#9776;</button>
-        <h1><a href={`/${lang}/`}>{t(lang, "site.title")}</a></h1>
+        <div class="site-title"><a href={`/${lang}/`}>{t(lang, "site.title")}</a></div>
         <nav class="desktop-nav">
           {navItems.map((item) => (
             <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>

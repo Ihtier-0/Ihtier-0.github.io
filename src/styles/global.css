@@ -91,12 +91,13 @@ a:hover {
   background: var(--bg);
 }
 
-.site-header h1 {
+.site-header .site-title {
   font-size: 1.2rem;
+  font-weight: bold;
   white-space: nowrap;
 }
 
-.site-header h1 a {
+.site-header .site-title a {
   color: var(--text);
 }
 

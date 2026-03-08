@@ -15,6 +15,7 @@ const path = Astro.url.pathname;
 const navItems = [
   { href: `/${lang}/articles/`, label: t(lang, "nav.articles") },
   { href: `/${lang}/etudes/`, label: t(lang, "nav.etudes") },
+  { href: `/${lang}/showcase/`, label: t(lang, "nav.showcase") },
   { href: `/${lang}/about/`, label: t(lang, "nav.about") },
 ];
 
@@ -84,6 +85,22 @@ function isActive(href: string) {
     <main id="main-content" data-pagefind-body>
       <slot />
     </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <nav class="footer-nav">
+          {navItems.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+        <div class="footer-links">
+          <a href="https://github.com/Ihtier-0">GitHub</a>
+          <a href="https://t.me/ihtier0">Telegram</a>
+          <a href="https://www.linkedin.com/in/ihtier0">LinkedIn</a>
+        </div>
+        <p class="footer-copy">&copy; {new Date().getFullYear()} Ihtier-0. {t(lang, "footer.built")} <a href="https://astro.build">Astro</a>.</p>
+      </div>
+    </footer>
 
     <script define:vars={{ lang }}>
       window.__LANG__ = lang;
@@ -418,5 +435,57 @@ function isActive(href: string) {
     .nav-toggle {
       display: none;
     }
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--border);
+    margin-top: 4rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-nav a {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .footer-nav a:hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-links a {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .footer-links a:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-muted);
   }
 </style>

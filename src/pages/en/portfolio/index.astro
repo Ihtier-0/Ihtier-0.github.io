@@ -14,7 +14,7 @@ const posts = Object.values(mods)
   .sort((a, b) => (b.date > a.date ? 1 : -1));
 ---
 
-<Base title={`${t("ru", "page.showcase")} — Ihtier-0 blog`}>
-  <h2 style="margin-bottom:1.5rem">{t("ru", "page.showcase")}</h2>
-  <PostList posts={posts} lang="ru" emptyKey="list.empty.showcase" />
+<Base title={`${t("en", "page.portfolio")} — Ihtier-0 blog`}>
+  <h2 style="margin-bottom:1.5rem">{t("en", "page.portfolio")}</h2>
+  <PostList posts={posts} lang="en" emptyKey="list.empty.portfolio" />
 </Base>

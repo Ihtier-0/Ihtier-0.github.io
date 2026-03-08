@@ -225,7 +225,7 @@ main {
   color: #d2a8ff;
 }
 
-.tag-showcase {
+.tag-portfolio {
   background: #1f3a2d;
   color: #7ee787;
 }
@@ -240,7 +240,7 @@ main {
   color: #6639ba;
 }
 
-[data-theme="light"] .tag-showcase {
+[data-theme="light"] .tag-portfolio {
   background: #dafbe1;
   color: #1a7f37;
 }
@@ -276,11 +276,13 @@ main {
   margin-bottom: 1rem;
 }
 
-.article-content img {
+.article-content img,
+.article-content video {
+  display: block;
   max-width: 100%;
   border-radius: 8px;
   border: 1px solid var(--border);
-  margin: 1rem 0;
+  margin: 1rem auto;
 }
 
 .article-content ul,

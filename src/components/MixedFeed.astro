@@ -25,7 +25,7 @@ const { posts, lang } = Astro.props;
         <a href={a.url}>
           <div class="post-meta">
             <span class={`tag tag-${a.type}`}>
-              {a.type === "article" ? t(lang, "tag.article") : a.type === "etude" ? t(lang, "tag.etude") : t(lang, "tag.showcase")}
+              {a.type === "article" ? t(lang, "tag.article") : a.type === "etude" ? t(lang, "tag.etude") : t(lang, "tag.portfolio")}
             </span>
             {a.date && <span class="date">{a.date}</span>}
           </div>

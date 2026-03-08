@@ -10,8 +10,6 @@ if (process.env.INCLUDE_DEMO !== "true") {
     "src/pages/en/articles/demo.mdx",
     "src/pages/ru/etudes/demo.mdx",
     "src/pages/en/etudes/demo.mdx",
-    "src/pages/ru/showcase/demo.mdx",
-    "src/pages/en/showcase/demo.mdx",
   ];
   for (const f of demos) {
     const full = resolve(root, f);

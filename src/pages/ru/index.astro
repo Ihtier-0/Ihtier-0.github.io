@@ -4,7 +4,7 @@ import MixedFeed from "../../components/MixedFeed.astro";
 
 const articleMods = import.meta.glob("./articles/*.mdx", { eager: true });
 const etudeMods = import.meta.glob("./etudes/*.mdx", { eager: true });
-const showcaseMods = import.meta.glob("./showcase/*.mdx", { eager: true });
+const portfolioMods = import.meta.glob("./portfolio/*.mdx", { eager: true });
 
 function toList(mods: Record<string, any>, type: string) {
   return Object.values(mods).map((a: any) => ({
@@ -16,7 +16,7 @@ function toList(mods: Record<string, any>, type: string) {
   }));
 }
 
-const all = [...toList(articleMods, "article"), ...toList(etudeMods, "etude"), ...toList(showcaseMods, "showcase")]
+const all = [...toList(articleMods, "article"), ...toList(etudeMods, "etude"), ...toList(portfolioMods, "portfolio")]
   .sort((a, b) => (b.date > a.date ? 1 : -1));
 ---
 

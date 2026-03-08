@@ -4,9 +4,13 @@ import { getLangFromUrl, getOtherLang, languages, t } from "../i18n";
 interface Props {
   title: string;
   description?: string;
+  pagefind?: boolean;
 }
 
-const { title, description = "Ihtier-0 Blog — C++ and Systems Programming" } = Astro.props;
+const fm = (Astro.props as any).frontmatter;
+const title = fm?.title ?? Astro.props.title;
+const description = fm?.description ?? Astro.props.description ?? "Ihtier-0 Blog — C++ and Systems Programming";
+const pagefind = fm?.pagefind ?? Astro.props.pagefind ?? !!fm;
 const lang = getLangFromUrl(Astro.url);
 const otherLang = getOtherLang(lang);
 const switchUrl = Astro.url.pathname.replace(`/${lang}/`, `/${otherLang}/`);
@@ -82,7 +86,7 @@ function isActive(href: string) {
       </ul>
     </nav>
 
-    <main id="main-content" data-pagefind-body>
+    <main id="main-content" {...(pagefind ? { "data-pagefind-body": "" } : {})}>
       <slot />
     </main>
 

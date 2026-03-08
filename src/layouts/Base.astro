@@ -79,10 +79,14 @@ function isActive(href: string) {
       </div>
       <ul class="nav-links">
         <li><a href={`/${lang}/`} aria-current={isActive(`/${lang}/`) ? "page" : undefined}>{t(lang, "nav.home")}</a></li>
-        <li class="nav-section">{t(lang, "nav.blog")}</li>
-        {navItems.map((item) => (
-          <li><a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a></li>
-        ))}
+        <li class="nav-section">{t(lang, "nav.blog")}
+          <ul class="nav-sub">
+            <li><a href={`/${lang}/articles/`} aria-current={isActive(`/${lang}/articles/`) ? "page" : undefined}>{t(lang, "nav.articles")}</a></li>
+            <li><a href={`/${lang}/etudes/`} aria-current={isActive(`/${lang}/etudes/`) ? "page" : undefined}>{t(lang, "nav.etudes")}</a></li>
+            <li><a href={`/${lang}/portfolio/`} aria-current={isActive(`/${lang}/portfolio/`) ? "page" : undefined}>{t(lang, "nav.portfolio")}</a></li>
+          </ul>
+        </li>
+        <li><a href={`/${lang}/about/`} aria-current={isActive(`/${lang}/about/`) ? "page" : undefined}>{t(lang, "nav.about")}</a></li>
       </ul>
     </nav>
 
@@ -441,6 +445,18 @@ function isActive(href: string) {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--text-muted);
+  }
+
+  .nav-sub {
+    list-style: none;
+    padding: 0;
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 0.95rem;
+  }
+
+  .nav-sub li a {
+    padding-left: 2.5rem;
   }
 
   .nav-links li a[aria-current="page"] {

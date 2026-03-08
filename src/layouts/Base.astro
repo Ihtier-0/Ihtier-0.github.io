@@ -241,17 +241,28 @@ function isActive(href: string) {
     </script>
     <script is:inline>
       (function(){
+        if ("scrollRestoration" in history) history.scrollRestoration = "manual";
         var sw = document.getElementById("lang-switch");
         if (sw) {
           sw.addEventListener("click", function() {
-            try { sessionStorage.setItem("scrollY", window.scrollY); } catch(e) {}
+            try {
+              var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+              var ratio = maxScroll > 0 ? (window.scrollY / maxScroll) : 0;
+              sessionStorage.setItem("scrollRatio", String(ratio));
+            } catch(e) {}
           });
         }
         try {
-          var y = sessionStorage.getItem("scrollY");
-          if (y !== null) {
-            sessionStorage.removeItem("scrollY");
-            window.scrollTo(0, parseInt(y, 10));
+          var r = sessionStorage.getItem("scrollRatio");
+          if (r !== null) {
+            sessionStorage.removeItem("scrollRatio");
+            var ratio = parseFloat(r);
+            var apply = function() {
+              var max = document.documentElement.scrollHeight - window.innerHeight;
+              window.scrollTo(0, Math.round(ratio * max));
+            };
+            apply();
+            requestAnimationFrame(apply);
           }
         } catch(e) {}
       })();

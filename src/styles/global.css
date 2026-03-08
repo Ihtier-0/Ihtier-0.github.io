@@ -24,6 +24,25 @@
   --accent-hover: #0550ae;
 }
 
+/* Shiki dual theme switching */
+[data-theme="dark"] .astro-code {
+  color: var(--shiki-dark) !important;
+  background-color: var(--bg-code) !important;
+}
+
+[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+}
+
+[data-theme="light"] .astro-code {
+  color: var(--shiki-light) !important;
+  background-color: var(--bg-code) !important;
+}
+
+[data-theme="light"] .astro-code span {
+  color: var(--shiki-light) !important;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -198,6 +217,11 @@ main {
   color: #d2a8ff;
 }
 
+.tag-showcase {
+  background: #1f3a2d;
+  color: #7ee787;
+}
+
 [data-theme="light"] .tag-article {
   background: #ddf4ff;
   color: #0550ae;
@@ -206,6 +230,11 @@ main {
 [data-theme="light"] .tag-etude {
   background: #fbefff;
   color: #6639ba;
+}
+
+[data-theme="light"] .tag-showcase {
+  background: #dafbe1;
+  color: #1a7f37;
 }
 
 /* Article content */

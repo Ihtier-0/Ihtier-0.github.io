@@ -10,7 +10,7 @@ interface Props {
 const fm = (Astro.props as any).frontmatter;
 const title = fm?.title ?? Astro.props.title;
 const description = fm?.description ?? Astro.props.description ?? "Ihtier-0 Blog — C++ and Systems Programming";
-const pagefind = fm?.pagefind ?? Astro.props.pagefind ?? !!fm;
+const pagefind = fm?.pagefind ?? Astro.props.pagefind ?? true;
 const lang = getLangFromUrl(Astro.url);
 const otherLang = getOtherLang(lang);
 const switchUrl = Astro.url.pathname.replace(`/${lang}/`, `/${otherLang}/`);

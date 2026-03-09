@@ -20,6 +20,6 @@ const all = [...toList(articleMods, "article"), ...toList(etudeMods, "etude"), .
   .sort((a, b) => (b.date > a.date ? 1 : -1));
 ---
 
-<Base title="Ihtier-0 blog">
+<Base title="Ihtier-0 blog" pagefind={false}>
   <MixedFeed posts={all} lang="en" />
 </Base>

@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, getOtherLang, languages, t } from "../i18n";
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -279,10 +280,6 @@ function isActive(href: string) {
     </script>
   </body>
 </html>
-
-<style is:global>
-  @import "../styles/global.css";
-</style>
 
 <style>
   .skip-link {

@@ -47,6 +47,8 @@ function isActive(href: string) {
       (function(){
         try { var t = localStorage.getItem("theme") || "dark"; } catch(e) { var t = "dark"; }
         document.documentElement.setAttribute("data-theme", t);
+        var seg = location.pathname.split("/").filter(Boolean);
+        if (seg[0] === "en" || seg[0] === "ru") localStorage.setItem("lang", seg[0]);
       })();
     </script>
   </head>

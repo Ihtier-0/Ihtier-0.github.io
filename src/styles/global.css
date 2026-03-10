@@ -455,7 +455,6 @@ main {
 /* About page */
 .about-header {
   text-align: justify;
-  padding-bottom: 2rem;
   margin-bottom: 2.5rem;
 }
 
@@ -464,12 +463,12 @@ main {
   font-size: 2rem;
   font-weight: 700;
   color: var(--text);
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.5rem;
 }
 
 .about-title {
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   color: var(--accent);
   font-weight: 500;
   margin: 0 0 1rem;
@@ -477,7 +476,7 @@ main {
 
 .about-bio {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.7;
   margin: 0 auto;
 }

@@ -1,0 +1,227 @@
+---
+import { languages, t } from "../i18n";
+import type { Lang } from "../i18n";
+
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  lang: Lang;
+  otherLang: Lang;
+  switchUrl: string;
+  navItems: NavItem[];
+  path: string;
+}
+
+const { lang, otherLang, switchUrl, navItems, path } = Astro.props;
+
+function isActive(href: string) {
+  return path === href || path === href.replace(/\/$/, "");
+}
+---
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+<header class="site-header">
+  <div class="header-left">
+    <button id="nav-toggle" class="nav-toggle" aria-label="Menu">&#9776;</button>
+    <div class="site-title"><a href={`/${lang}/`}>{t(lang, "site.title")}</a></div>
+    <nav class="desktop-nav">
+      {navItems.map((item) => (
+        <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>
+      ))}
+    </nav>
+  </div>
+  <div class="header-right">
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></button>
+    <a class="lang-switch" id="lang-switch" href={switchUrl}>{languages[otherLang]}</a>
+    <div class="search-wrapper">
+      <input type="text" id="search-input" placeholder={t(lang, "search.placeholder")} />
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function(){
+    var btn = document.getElementById("theme-toggle");
+    function update() {
+      var t = document.documentElement.getAttribute("data-theme");
+      btn.textContent = t === "dark" ? "\u2600\uFE0F" : "\uD83C\uDF19";
+    }
+    update();
+    btn.addEventListener("click", function(){
+      var curr = document.documentElement.getAttribute("data-theme");
+      var next = curr === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch(e) {}
+      update();
+    });
+  })();
+</script>
+
+<script define:vars={{ lang }} is:inline>
+  (function() {
+    var input = document.getElementById("search-input");
+    var results = document.getElementById("search-results");
+    var pagefind = null;
+
+    input.addEventListener("focus", async function() {
+      if (!pagefind) {
+        try {
+          pagefind = await import("/pagefind/pagefind.js");
+          await pagefind.init();
+        } catch(e) { return; }
+      }
+    });
+
+    input.addEventListener("input", async function() {
+      var query = input.value.trim();
+      if (!query || !pagefind) {
+        results.classList.remove("active");
+        return;
+      }
+      var search = await pagefind.search(query);
+      var items = await Promise.all(search.results.slice(0, 5).map(function(r) { return r.data(); }));
+      if (items.length === 0) {
+        results.innerHTML = '<div style="padding:0.6rem 0.8rem;color:var(--text-muted)">' +
+          (lang === "ru" ? "\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E" : "Nothing found") +
+        '</div>';
+      } else {
+        results.innerHTML = items
+          .map(function(item) { return '<a href="' + item.url + '">' + (item.meta?.title || item.url) + '</a>'; })
+          .join("");
+      }
+      results.classList.add("active");
+    });
+
+    document.addEventListener("click", function(e) {
+      if (!e.target.closest(".search-wrapper")) {
+        results.classList.remove("active");
+      }
+    });
+  })();
+</script>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 999;
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  .skip-link:focus {
+    top: 0.5rem;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .header-right > *,
+  .header-right .search-wrapper input {
+    height: 2rem;
+  }
+
+  .nav-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 1.2rem;
+    height: 2rem;
+    width: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .nav-toggle:hover {
+    border-color: var(--accent);
+  }
+
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--accent);
+  }
+
+  .lang-switch {
+    font-size: 0.85rem;
+    padding: 0 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 5rem;
+  }
+
+  .lang-switch:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+
+  .desktop-nav {
+    display: none;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: 0.5rem;
+  }
+
+  .desktop-nav a {
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .desktop-nav a:hover {
+    color: var(--text);
+    background: var(--bg-code);
+    text-decoration: none;
+  }
+
+  .desktop-nav a[aria-current="page"] {
+    color: var(--accent);
+  }
+
+  @media (min-width: 768px) {
+    .desktop-nav {
+      display: flex;
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+  }
+</style>

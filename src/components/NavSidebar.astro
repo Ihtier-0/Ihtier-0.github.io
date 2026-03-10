@@ -1,0 +1,175 @@
+---
+import { t } from "../i18n";
+import type { Lang } from "../i18n";
+
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  lang: Lang;
+  navItems: NavItem[];
+  path: string;
+}
+
+const { lang, navItems, path } = Astro.props;
+
+function isActive(href: string) {
+  return path === href || path === href.replace(/\/$/, "");
+}
+---
+
+<div id="nav-overlay" class="nav-overlay"></div>
+<nav id="nav-sidebar" class="nav-sidebar">
+  <div class="nav-sidebar-header">
+    <button id="nav-close" class="nav-close" aria-label="Close">&times;</button>
+  </div>
+  <ul class="nav-links">
+    <li><a href={`/${lang}/`} aria-current={isActive(`/${lang}/`) ? "page" : undefined}>{t(lang, "nav.home")}</a></li>
+    <li class="nav-section">{t(lang, "nav.blog")}
+      <ul class="nav-sub">
+        {navItems.map((item) => (
+          <li><a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+    </li>
+    <li><a href={`/${lang}/about/`} aria-current={isActive(`/${lang}/about/`) ? "page" : undefined}>{t(lang, "nav.about")}</a></li>
+  </ul>
+</nav>
+
+<script is:inline>
+  (function(){
+    var toggle = document.getElementById("nav-toggle");
+    var close = document.getElementById("nav-close");
+    var sidebar = document.getElementById("nav-sidebar");
+    var overlay = document.getElementById("nav-overlay");
+    function open() {
+      sidebar.classList.add("open");
+      overlay.classList.add("open");
+      close.focus();
+    }
+    function shut() {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("open");
+      toggle.focus();
+    }
+    toggle.addEventListener("click", open);
+    close.addEventListener("click", shut);
+    overlay.addEventListener("click", shut);
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && sidebar.classList.contains("open")) shut();
+    });
+    sidebar.addEventListener("keydown", function(e) {
+      if (e.key !== "Tab") return;
+      var focusable = sidebar.querySelectorAll("button, a[href]");
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    });
+  })();
+</script>
+
+<style>
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0.25s;
+  }
+
+  .nav-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border);
+    z-index: 300;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    overflow-y: auto;
+  }
+
+  .nav-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .nav-sidebar-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .nav-close:hover {
+    color: var(--text);
+  }
+
+  .nav-links {
+    list-style: none;
+    padding: 0.5rem 0;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 0.6rem 1.5rem;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .nav-links li a:hover {
+    background: var(--bg-code);
+    text-decoration: none;
+  }
+
+  .nav-section {
+    padding: 0.8rem 1.5rem 0.3rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+
+  .nav-sub {
+    list-style: none;
+    padding: 0;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 0.95rem;
+  }
+
+  .nav-sub li a {
+    padding-left: 2.5rem;
+  }
+
+  .nav-links li a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--bg-code);
+  }
+</style>

@@ -1,3 +1,9 @@
----
-return Astro.redirect("/en/");
----
+<html>
+  <head>
+    <script is:inline>
+      const lang = navigator.language?.startsWith("ru") ? "ru" : "en";
+      window.location.replace("/" + lang + "/");
+    </script>
+    <meta http-equiv="refresh" content="0;url=/en/" />
+  </head>
+</html>

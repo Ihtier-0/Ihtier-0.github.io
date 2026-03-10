@@ -3,3 +3,15 @@ dist/
 .astro/
 .claude/
 wasm-apps/imgui/
+
+# WASM build output
+public/wasm/imgui-demo/
+
+# emsdk installed toolchains (submodule scripts are tracked, binaries are not)
+emsdk/upstream/
+emsdk/node/
+emsdk/.emscripten
+emsdk/.emscripten_sanity
+emsdk/java/
+emsdk/python/
+emsdk/zips/

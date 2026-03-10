@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "npm run build:wasm && astro dev",
     "build:wasm": "bash wasm-apps/build.sh",
     "build": "node scripts/prebuild.mjs && npm run build:wasm && astro build && npx pagefind --site dist",
     "preview": "astro preview"

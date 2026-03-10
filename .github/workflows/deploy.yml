@@ -25,6 +25,8 @@ jobs:
           node-version: 22
 
       - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: "5.0.2"
 
       - run: npm ci
       - run: npm run build

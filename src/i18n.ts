@@ -63,7 +63,7 @@ export function t(lang: Lang, key: keyof (typeof ui)["ru"]): string {
 export function getLangFromUrl(url: URL): Lang {
   const seg = url.pathname.split("/").filter(Boolean);
   if (seg[0] && seg[0] in languages) return seg[0] as Lang;
-  return "ru";
+  return "en";
 }
 
 export function getOtherLang(lang: Lang): Lang {

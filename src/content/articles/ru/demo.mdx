@@ -1,0 +1,172 @@
+---
+title: "Демо: все возможности блога"
+date: 2026-03-06
+summary: "Текст, картинки, видео, подсветка C++, интерактивные шейдеры, WASM-приложения и поиск."
+---
+
+import ShaderEditor from "../../../components/ShaderEditor.astro";
+import VideoEmbed from "../../../components/VideoEmbed.astro";
+import WasmApp from "../../../components/WasmApp.astro";
+
+<div class="article-header">
+  <h1>Демо: все возможности блога</h1>
+  <div class="meta">2026-03-06 · ihtier</div>
+</div>
+
+<div class="article-content">
+
+## Текст и форматирование
+
+Обычный текст статьи. Можно использовать **жирный**, *курсив*, `инлайн код` и [ссылки](https://example.com).
+
+Списки тоже работают:
+- Первый пункт
+- Второй пункт
+- Третий пункт
+
+> Цитаты выглядят вот так. Это просто Markdown.
+
+---
+
+## Картинки
+
+Картинки вставляются стандартным Markdown-синтаксисом:
+
+![Крыса](/images/rat.png)
+
+---
+
+## Видео
+
+Встраиваем YouTube через компонент:
+
+<VideoEmbed src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" title="Пример видео" />
+
+---
+
+## Подсветка кода C++
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+template<typename T>
+class BinaryTree {
+    struct Node {
+        T value;
+        Node* left = nullptr;
+        Node* right = nullptr;
+        Node(T v) : value(std::move(v)) {}
+    };
+
+    Node* root = nullptr;
+
+    void insert(Node*& node, T value) {
+        if (!node) {
+            node = new Node(std::move(value));
+            return;
+        }
+        if (value < node->value)
+            insert(node->left, value);
+        else
+            insert(node->right, value);
+    }
+
+    void inorder(Node* node, std::vector<T>& result) {
+        if (!node) return;
+        inorder(node->left, result);
+        result.push_back(node->value);
+        inorder(node->right, result);
+    }
+
+public:
+    void insert(T value) { insert(root, std::move(value)); }
+
+    std::vector<T> sorted() {
+        std::vector<T> result;
+        inorder(root, result);
+        return result;
+    }
+};
+
+int main() {
+    BinaryTree<int> tree;
+    for (int x : {5, 3, 7, 1, 4, 6, 8})
+        tree.insert(x);
+
+    for (int x : tree.sorted())
+        std::cout << x << " ";
+
+    return 0;
+}
+```
+
+---
+
+## Интерактивный GLSL-шейдер
+
+Редактируй код слева — результат обновляется в реальном времени:
+
+<ShaderEditor
+  title="Градиент с анимацией"
+  fragment={`precision mediump float;
+
+uniform float u_time;
+uniform vec2 u_resolution;
+
+void main() {
+    vec2 st = gl_FragCoord.xy / u_resolution;
+
+    float r = st.x * (0.5 + 0.5 * sin(u_time));
+    float g = st.y * (0.5 + 0.5 * cos(u_time * 0.7));
+    float b = 0.5 + 0.5 * sin(u_time * 0.3 + st.x * 3.14);
+
+    gl_FragColor = vec4(r, g, b, 1.0);
+}`}
+/>
+
+<ShaderEditor
+  title="Круги"
+  fragment={`precision mediump float;
+
+uniform float u_time;
+uniform vec2 u_resolution;
+
+void main() {
+    vec2 st = gl_FragCoord.xy / u_resolution;
+    vec2 center = vec2(0.5);
+    float dist = distance(st, center);
+
+    float ring = sin(dist * 30.0 - u_time * 3.0);
+    ring = smoothstep(0.0, 0.05, ring);
+
+    vec3 color = mix(
+        vec3(0.1, 0.2, 0.5),
+        vec3(0.9, 0.4, 0.1),
+        ring
+    );
+
+    gl_FragColor = vec4(color, 1.0);
+}`}
+/>
+
+---
+
+## C++ приложение (ImGui + WASM)
+
+Это настоящее C++ приложение, скомпилированное в WebAssembly через Emscripten. ImGui + SDL2 + OpenGL ES 3 — всё работает в браузере:
+
+<WasmApp
+  src="/wasm/imgui-demo/index.html"
+  title="ImGui Demo — C++ → WebAssembly"
+  height="450px"
+/>
+
+---
+
+## Поиск
+
+Попробуй поиск в шапке сайта — он ищет по всем статьям. Индекс строится автоматически при сборке через [Pagefind](https://pagefind.app).
+
+</div>

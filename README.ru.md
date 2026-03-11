@@ -57,22 +57,44 @@ npm run build:wasm
 src/
 ├── pages/
 │   ├── index.astro              # Редирект → /en/
-│   ├── en/                      # English pages
-│   │   ├── index.astro
-│   │   └── articles/
-│   │       └── demo.mdx
-│   └── ru/                      # Русские страницы
-│       ├── index.astro
-│       └── articles/
-│           └── demo.mdx
+│   └── [lang]/                  # Динамические маршруты для en и ru
+│       ├── index.astro          # Главная (объединённая лента всего контента)
+│       ├── about.astro          # Страница «Обо мне»
+│       ├── articles/
+│       │   ├── index.astro      # Список статей
+│       │   └── [slug].astro     # Отдельная статья
+│       ├── etudes/
+│       │   ├── index.astro
+│       │   └── [slug].astro
+│       └── portfolio/
+│           ├── index.astro
+│           └── [slug].astro
+├── content/                     # Astro Content Collections
+│   ├── config.ts                # Zod-схемы для коллекций
+│   ├── articles/
+│   │   ├── en/                  # Статьи на английском (.mdx)
+│   │   └── ru/                  # Статьи на русском (.mdx)
+│   ├── etudes/
+│   │   ├── en/
+│   │   └── ru/
+│   └── portfolio/
+│       ├── en/
+│       └── ru/
 ├── layouts/
-│   └── Base.astro               # Базовый layout (шапка, поиск, язык)
+│   └── Base.astro               # Базовый layout (head, структура страницы)
 ├── components/
+│   ├── SiteHeader.astro         # Верхняя навигационная панель
+│   ├── NavSidebar.astro         # Левый сайдбар с навигацией
+│   ├── SiteFooter.astro         # Футер
+│   ├── MixedFeed.astro          # Лента главной страницы (все типы контента)
+│   ├── PostList.astro           # Список постов на страницах-листингах
+│   ├── AboutEn.astro            # Контент страницы «About» (английский)
+│   ├── AboutRu.astro            # Контент страницы «Обо мне» (русский)
 │   ├── ShaderEditor.astro       # Интерактивный GLSL-редактор
 │   ├── VideoEmbed.astro         # YouTube embed
 │   └── WasmApp.astro            # Встройка WASM-приложений (iframe)
 ├── styles/
-│   └── global.css               # Глобальные стили (тёмная тема)
+│   └── global.css               # Глобальные стили
 └── i18n.ts                      # Переводы UI
 wasm-apps/
 ├── build.sh                     # Скрипт сборки всех WASM-приложений
@@ -88,21 +110,24 @@ scripts/prebuild.mjs             # Флаг INCLUDE_DEMO
 
 ### 1. Создай файл
 
-Статьи — это `.mdx` файлы в `src/pages/{lang}/articles/`:
+Статьи — это `.mdx` файлы в `src/content/articles/{lang}/`:
 
 ```bash
-src/pages/en/articles/my-article.mdx
-src/pages/ru/articles/my-article.mdx
+src/content/articles/en/my-article.mdx
+src/content/articles/ru/my-article.mdx
 ```
 
 ### 2. Заполни frontmatter
 
 ```mdx
 ---
-layout: ../../../layouts/Base.astro
 title: "Название статьи"
+date: "2026-03-06"
+summary: "Короткое описание, которое отображается в листингах."
 ---
 ```
+
+Поле `layout` указывать не нужно — layout применяется автоматически.
 
 ### 3. Пиши контент
 
@@ -112,13 +137,6 @@ title: "Название статьи"
 import ShaderEditor from "../../../components/ShaderEditor.astro";
 import VideoEmbed from "../../../components/VideoEmbed.astro";
 import WasmApp from "../../../components/WasmApp.astro";
-
-<div class="article-header">
-  <h1>Моя статья</h1>
-  <div class="meta">2026-03-06</div>
-</div>
-
-<div class="article-content">
 
 ## Текст
 
@@ -145,23 +163,11 @@ void main() {
 ## WASM-приложение
 
 <WasmApp src="/wasm/my-app/index.html" title="Моё приложение" height="450px" />
-
-</div>
 ```
 
-### 4. Добавь на главную
+Статьи автоматически появляются на главной и в листинге `/ru/articles/` — редактировать index-файлы не нужно.
 
-Отредактируй `src/pages/en/index.astro` (и `ru/index.astro`):
-
-```astro
-<li>
-  <a href="articles/my-article/">
-    <h2>Моя статья</h2>
-    <span class="date">2026-03-06</span>
-    <p class="summary">Описание статьи.</p>
-  </a>
-</li>
-```
+То же самое относится к **этюдам** (`src/content/etudes/`) и **портфолио** (`src/content/portfolio/`).
 
 ## Добавление WASM-приложений
 
@@ -181,4 +187,6 @@ void main() {
 
 1. Добавь локаль в `astro.config.mjs` → `i18n.locales`
 2. Добавь переводы в `src/i18n.ts`
-3. Создай `src/pages/{lang}/` с index и статьями
+3. Создай директории контента: `src/content/articles/{lang}/`, `src/content/etudes/{lang}/`, `src/content/portfolio/{lang}/`
+4. Добавь `{ params: { lang: "..." } }` в `getStaticPaths()` во всех файлах `[lang]/*.astro` и `[lang]/**/index.astro`
+5. Создай `src/components/About{Lang}.astro` и обнови `src/pages/[lang]/about.astro`

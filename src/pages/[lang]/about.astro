@@ -1,0 +1,27 @@
+---
+import Base from "../../layouts/Base.astro";
+import type { Lang } from "../../i18n";
+import AboutEn from "../../components/AboutEn.astro";
+import AboutRu from "../../components/AboutRu.astro";
+
+export async function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
+}
+
+const lang = Astro.params.lang as Lang;
+
+const meta = {
+  en: {
+    title: "About me — Ihtier-0 blog",
+    description: "Ikhtierzhon Rakhimov — Senior C++ Developer specializing in desktop applications, 3D graphics, and VR/AR.",
+  },
+  ru: {
+    title: "Обо мне — Ihtier-0 blog",
+    description: "Рахимов Ихтиёржон — Senior C++ Developer, специализация: десктопные приложения, 3D-графика, VR/AR.",
+  },
+};
+---
+
+<Base title={meta[lang].title} description={meta[lang].description}>
+  {lang === "en" ? <AboutEn /> : <AboutRu />}
+</Base>

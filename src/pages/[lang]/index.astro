@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import MixedFeed from "../../components/MixedFeed.astro";
+import type { Lang } from "../../i18n";
+
+export async function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
+}
+
+const lang = Astro.params.lang as Lang;
+
+function toList(entries: any[], type: string) {
+  return entries.map((e) => ({
+    url: `/${lang}/${type}/${e.id.split("/").slice(1).join("/").replace(/\.(md|mdx)$/, "")}`,
+    title: e.data.title,
+    date: e.data.date ?? "",
+    summary: e.data.summary ?? "",
+    type,
+  }));
+}
+
+const [articles, etudes, portfolio] = await Promise.all([
+  getCollection("articles", (e) => e.id.startsWith(lang + "/")),
+  getCollection("etudes", (e) => e.id.startsWith(lang + "/")),
+  getCollection("portfolio", (e) => e.id.startsWith(lang + "/")),
+]);
+
+const all = [
+  ...toList(articles, "articles"),
+  ...toList(etudes, "etudes"),
+  ...toList(portfolio, "portfolio"),
+].sort((a, b) => (b.date > a.date ? 1 : -1));
+---
+
+<Base title="Ihtier-0 blog" pagefind={false}>
+  <MixedFeed posts={all} lang={lang} />
+</Base>

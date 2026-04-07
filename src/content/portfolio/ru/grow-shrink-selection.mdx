@@ -1,0 +1,35 @@
+---
+title: "Алгоритм Grow/Shrink Selection"
+date: 2026-01-01
+summary: "Grow/Shrink Selection на сфере с более чем 1 млн вершин, реализован на C++14 с OpenMesh."
+---
+
+<div class="article-header">
+  <h1>Алгоритм Grow/Shrink Selection</h1>
+  <div class="meta">2026-01-01 · ihtier</div>
+</div>
+
+<div class="article-content">
+
+В этом видео демонстрируется алгоритм Grow/Shrink Selection на сфере с более чем 1 миллионом вершин.
+
+Алгоритм реализован с использованием структуры данных half-edge из библиотеки OpenMesh и поддерживает:
+
+- Grow/Shrink Selection для вершин, рёбер и граней
+- Выделение отдельной связной компоненты в меше с несколькими несвязными областями
+- Выделение петли рёбер (Edge loop selection)
+
+Реализовано на **C++14** с использованием [**OpenMesh 9.0**](https://www.graphics.rwth-aachen.de/software/openmesh/).
+
+<video controls width="100%">
+  <source src="/images/portfolio/grow-shrink-selection/demo.mp4" type="video/mp4" />
+</video>
+
+## Ссылки
+
+1. [Пост в LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7412603144146337793/)
+2. [OpenMesh](https://www.graphics.rwth-aachen.de/software/openmesh/)
+3. [OpenMesh на GitLab](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh)
+4. [Моя реализация алгоритма Grow/Shrink Selection](https://github.com/shapefx/OpenDCC/blob/ce03ebc77daa8d5ae17d8cdd6cdf217e776d5ce9/src/lib/opendcc/app/core/half_edge_cache.h)
+
+</div>

@@ -57,22 +57,44 @@ If `emcc` is not found, WASM build is skipped without error. In CI (GitHub Actio
 src/
 ├── pages/
 │   ├── index.astro              # Redirect → /en/
-│   ├── en/                      # English pages
-│   │   ├── index.astro
-│   │   └── articles/
-│   │       └── demo.mdx
-│   └── ru/                      # Russian pages
-│       ├── index.astro
-│       └── articles/
-│           └── demo.mdx
+│   └── [lang]/                  # Dynamic routes for en and ru
+│       ├── index.astro          # Home (mixed feed of all content)
+│       ├── about.astro          # About page
+│       ├── articles/
+│       │   ├── index.astro      # Article listing
+│       │   └── [slug].astro     # Individual article
+│       ├── etudes/
+│       │   ├── index.astro
+│       │   └── [slug].astro
+│       └── portfolio/
+│           ├── index.astro
+│           └── [slug].astro
+├── content/                     # Astro Content Collections
+│   ├── config.ts                # Zod schemas for all collections
+│   ├── articles/
+│   │   ├── en/                  # English articles (.mdx)
+│   │   └── ru/                  # Russian articles (.mdx)
+│   ├── etudes/
+│   │   ├── en/
+│   │   └── ru/
+│   └── portfolio/
+│       ├── en/
+│       └── ru/
 ├── layouts/
-│   └── Base.astro               # Base layout (header, search, lang switch)
+│   └── Base.astro               # Base layout (head, body structure)
 ├── components/
+│   ├── SiteHeader.astro         # Top navigation bar
+│   ├── NavSidebar.astro         # Left sidebar navigation
+│   ├── SiteFooter.astro         # Footer
+│   ├── MixedFeed.astro          # Home page feed (all content types)
+│   ├── PostList.astro           # Listing page post list
+│   ├── AboutEn.astro            # About page content (English)
+│   ├── AboutRu.astro            # About page content (Russian)
 │   ├── ShaderEditor.astro       # Interactive GLSL editor
 │   ├── VideoEmbed.astro         # YouTube embed
 │   └── WasmApp.astro            # WASM app embed (iframe)
 ├── styles/
-│   └── global.css               # Global styles (dark theme)
+│   └── global.css               # Global styles
 └── i18n.ts                      # UI translations
 wasm-apps/
 ├── build.sh                     # Build script for all WASM apps
@@ -88,21 +110,24 @@ scripts/prebuild.mjs             # INCLUDE_DEMO flag
 
 ### 1. Create file
 
-Articles are `.mdx` files in `src/pages/{lang}/articles/`:
+Articles are `.mdx` files in `src/content/articles/{lang}/`:
 
 ```bash
-src/pages/en/articles/my-article.mdx
-src/pages/ru/articles/my-article.mdx
+src/content/articles/en/my-article.mdx
+src/content/articles/ru/my-article.mdx
 ```
 
 ### 2. Frontmatter
 
 ```mdx
 ---
-layout: ../../../layouts/Base.astro
 title: "Article title"
+date: "2026-03-06"
+summary: "Short description shown in listings."
 ---
 ```
+
+No `layout` field needed — it is applied automatically.
 
 ### 3. Content
 
@@ -112,13 +137,6 @@ Standard Markdown + components:
 import ShaderEditor from "../../../components/ShaderEditor.astro";
 import VideoEmbed from "../../../components/VideoEmbed.astro";
 import WasmApp from "../../../components/WasmApp.astro";
-
-<div class="article-header">
-  <h1>My article</h1>
-  <div class="meta">2026-03-06</div>
-</div>
-
-<div class="article-content">
 
 ## Text
 
@@ -145,23 +163,11 @@ void main() {
 ## WASM app
 
 <WasmApp src="/wasm/my-app/index.html" title="My app" height="450px" />
-
-</div>
 ```
 
-### 4. Add to index
+Articles appear automatically on the home page and the `/en/articles/` listing — no need to edit any index file.
 
-Edit `src/pages/en/index.astro` (and `ru/index.astro`):
-
-```astro
-<li>
-  <a href="articles/my-article/">
-    <h2>My article</h2>
-    <span class="date">2026-03-06</span>
-    <p class="summary">Article description.</p>
-  </a>
-</li>
-```
+The same structure applies to **etudes** (`src/content/etudes/`) and **portfolio** (`src/content/portfolio/`).
 
 ## Adding WASM apps
 
@@ -181,4 +187,6 @@ Edit `src/pages/en/index.astro` (and `ru/index.astro`):
 
 1. Add locale to `astro.config.mjs` → `i18n.locales`
 2. Add translations to `src/i18n.ts`
-3. Create `src/pages/{lang}/` with index and articles
+3. Add content directories: `src/content/articles/{lang}/`, `src/content/etudes/{lang}/`, `src/content/portfolio/{lang}/`
+4. Add `{ params: { lang: "..." } }` to `getStaticPaths()` in all `[lang]/*.astro` and `[lang]/**/index.astro` files
+5. Create `src/components/About{Lang}.astro` and update `src/pages/[lang]/about.astro`

@@ -212,12 +212,12 @@ main {
   font-weight: 500;
 }
 
-.tag-article {
+.tag-articles {
   background: #1f3a5f;
   color: #79c0ff;
 }
 
-.tag-etude {
+.tag-etudes {
   background: #2d1f3a;
   color: #d2a8ff;
 }
@@ -227,12 +227,12 @@ main {
   color: #7ee787;
 }
 
-[data-theme="light"] .tag-article {
+[data-theme="light"] .tag-articles {
   background: #ddf4ff;
   color: #0550ae;
 }
 
-[data-theme="light"] .tag-etude {
+[data-theme="light"] .tag-etudes {
   background: #fbefff;
   color: #6639ba;
 }
